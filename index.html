@@ -1189,7 +1189,9 @@ async function submitForm(e) {
     bestTimeToCall: callLabels[callTime]
   };
 
-  /* 1 — Send email via EmailJS */
+  /* 1 — Send email via EmailJS
+       NOTE: the "To" address is set inside your EmailJS template on emailjs.com,
+       not passed here. Make sure your template sends to info@calnt.com. */
   try {
     if (typeof emailjs !== 'undefined' && window.CALNT_CONFIG &&
         CALNT_CONFIG.emailjs.publicKey !== 'YOUR_EMAILJS_PUBLIC_KEY') {
@@ -1197,37 +1199,54 @@ async function submitForm(e) {
         CALNT_CONFIG.emailjs.serviceId,
         CALNT_CONFIG.emailjs.templateId,
         {
-          to_email:        'info@calnt.com',
-          ref:             leadData.ref,
-          submitted_at:    leadData.submittedAt,
-          lead_name:       leadData.name,
-          lead_email:      leadData.email,
-          lead_phone:      leadData.phone,
-          property_type:   leadData.propertyType,
-          city:            leadData.city,
-          pincode:         leadData.pincode,
-          monthly_bill:    leadData.avgMonthlyBill,
-          system_size:     leadData.systemSize,
-          best_time:       leadData.bestTimeToCall
+          ref:           leadData.ref,
+          submitted_at:  leadData.submittedAt,
+          lead_name:     leadData.name,
+          lead_email:    leadData.email,
+          lead_phone:    leadData.phone,
+          property_type: leadData.propertyType,
+          city:          leadData.city,
+          pincode:       leadData.pincode,
+          monthly_bill:  leadData.avgMonthlyBill,
+          system_size:   leadData.systemSize,
+          best_time:     leadData.bestTimeToCall
         }
       );
+      console.log('EmailJS: sent OK');
+    } else {
+      console.warn('EmailJS: skipped — credentials not configured');
     }
   } catch (err) {
-    console.error('EmailJS error:', err);
+    console.error('EmailJS error:', err.text || err.message || err);
   }
 
-  /* 2 — Log to Google Sheets via Apps Script web app */
+  /* 2 — Log to Google Sheets via Apps Script (GET — avoids redirect/CORS issues) */
   try {
     if (window.CALNT_CONFIG && CALNT_CONFIG.googleSheets.scriptUrl !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
-      await fetch(CALNT_CONFIG.googleSheets.scriptUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(leadData)
+      const params = new URLSearchParams({
+        ref:           leadData.ref,
+        submittedAt:   leadData.submittedAt,
+        name:          leadData.name,
+        email:         leadData.email,
+        phone:         leadData.phone,
+        propertyType:  leadData.propertyType,
+        city:          leadData.city,
+        pincode:       leadData.pincode,
+        monthlyBill:   leadData.avgMonthlyBill,
+        systemSize:    leadData.systemSize,
+        bestTime:      leadData.bestTimeToCall
       });
+      // Use no-cors GET — Apps Script handles this without redirect issues
+      await fetch(CALNT_CONFIG.googleSheets.scriptUrl + '?' + params.toString(), {
+        method: 'GET',
+        mode: 'no-cors'
+      });
+      console.log('Google Sheets: request sent');
+    } else {
+      console.warn('Google Sheets: skipped — URL not configured');
     }
   } catch (err) {
-    console.error('Google Sheets error:', err);
+    console.error('Google Sheets error:', err.message || err);
   }
 
   /* 3 — Show success */
