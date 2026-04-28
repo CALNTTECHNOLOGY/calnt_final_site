@@ -178,10 +178,14 @@ p { margin: 0; }
 
 @media (max-width: 900px) {
   .hero { padding: 50px 0 70px; }
-  .hero-grid { grid-template-columns: 1fr; gap: 50px; }
-  .hero-visual { max-width: 100%; aspect-ratio: 1.2/1; margin: 0; }
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { max-width: 100%; aspect-ratio: 1.3/1; margin: 0; }
   .hero-meta { gap: 22px; flex-wrap: wrap; }
   .hero-meta .stat b { font-size: 22px; }
+  .hero-sub { font-size: 16px; }
+  /* keep floating cards but clamp them inside on tablet */
+  .hero-visual .fc-1 { left: 8px; }
+  .hero-visual .fc-2 { right: 8px; }
 }
 
 /* ============ Sections ============ */
@@ -439,9 +443,12 @@ p { margin: 0; }
 .ref { font-family: var(--font-mono); font-size: 13px; background: var(--bg-3); padding: 6px 14px; border-radius: 8px; display: inline-block; margin-top: 18px; }
 
 @media (max-width: 900px) {
-  .lead { grid-template-columns: 1fr; padding: 32px; gap: 32px; }
+  .lead { grid-template-columns: 1fr; padding: 32px; gap: 28px; }
   .form { padding: 24px; }
   .form-grid { grid-template-columns: 1fr; }
+  /* bigger touch targets on mobile */
+  .field input, .field select { padding: 13px 14px; }
+  .submit-btn { padding: 16px; }
 }
 
 /* ============ Footer ============ */
@@ -473,6 +480,104 @@ p { margin: 0; }
 /* ============ Util ============ */
 .fade-in { animation: fadeUp 0.6s ease both; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============ Mobile — 480px and below ============ */
+@media (max-width: 480px) {
+
+  /* Global */
+  .container { padding: 0 16px; }
+
+  /* Prevent iOS zoom on input focus */
+  input, select, textarea { font-size: 16px !important; }
+
+  /* Nav */
+  .nav-brand .wordmark b  { font-size: 16px; }
+  .nav-brand .wordmark span { font-size: 9px; letter-spacing: 0.12em; }
+  .nav-cta .btn-primary  { padding: 10px 14px; font-size: 13px; gap: 6px; }
+  .nav-cta .btn-primary svg { display: none; }
+
+  /* Hero */
+  .hero { padding: 36px 0 52px; }
+  .hero h1 { font-size: clamp(30px, 9.5vw, 38px); margin: 14px 0; }
+  .hero-sub { font-size: 15.5px; margin-bottom: 22px; }
+  .hero-ctas { flex-direction: column; align-items: stretch; }
+  .hero-ctas .btn { justify-content: center; width: 100%; }
+  .hero-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; margin-top: 32px; padding-top: 22px; }
+  .hero-meta .stat b { font-size: 20px; }
+  /* hide floating cards — they overflow off-screen on phones */
+  .hero-visual .floating-card { display: none; }
+  .hero-visual { aspect-ratio: 16/10; }
+
+  /* Section */
+  .section { padding: 48px 0; }
+  .section-tight { padding: 40px 0; }
+  .section-head { margin-bottom: 36px; }
+  .section-head h2 { font-size: clamp(24px, 7.5vw, 30px); }
+  .section-head p { font-size: 15px; }
+
+  /* Benefits */
+  .benefit-card { padding: 22px 18px; }
+  .benefit-card .num { font-size: 26px; }
+
+  /* Subsidy bar */
+  .subsidy-bar { grid-template-columns: 1fr !important; }
+  .subsidy-bar > div {
+    border-right: 0 !important;
+    border-bottom: 1px solid oklch(0.30 0.02 250) !important;
+  }
+  .subsidy-bar > div:last-child { border-bottom: 0 !important; }
+  .subsidy-bar > div:first-child { grid-column: unset !important; }
+  .subsidy-bar .val { font-size: 22px; }
+  .subsidy-bar > div { padding: 20px 18px; }
+
+  /* Services */
+  .service-card { grid-template-columns: 42px 1fr; gap: 14px; padding: 20px 16px; }
+  .service-card .icon { width: 42px; height: 42px; }
+  .service-card h3 { font-size: 17px; }
+
+  /* Process */
+  .process-step .step-circle { width: 46px; height: 46px; font-size: 18px; margin-bottom: 14px; }
+  .process-step h3 { font-size: 15.5px; }
+
+  /* Calculator */
+  .calc-card { padding: 22px 18px; border-radius: var(--radius-lg); }
+  .calc-output { padding: 22px 18px; border-radius: var(--radius-lg); gap: 16px; }
+  .calc-card h3 { font-size: 19px; }
+  .calc-output .big { font-size: clamp(32px, 10vw, 44px); }
+  .calc-output .big small { font-size: 15px; }
+  .calc-output .savings-grid .v { font-size: 21px; }
+  .calc-output .savings-grid { gap: 14px; }
+  .calc-output .breakdown { font-size: 12.5px; padding: 10px 12px; }
+  .calc-size-chips { gap: 6px; }
+  .calc-size-chips button { padding: 7px 11px; font-size: 12px; }
+
+  /* Lead form */
+  .lead { padding: 24px 20px; border-radius: var(--radius-lg); gap: 28px; }
+  .form { padding: 20px 16px; border-radius: var(--radius); }
+  .lead h2 { font-size: 26px; }
+  .lead .lede { font-size: 14.5px; margin-bottom: 20px; }
+  .lead-perks li { font-size: 13.5px; }
+  .prop-pills button { font-size: 12px; padding: 10px 6px; gap: 4px; }
+  .prop-pills button svg { width: 16px; height: 16px; }
+  .submit-btn { font-size: 15px; padding: 15px; }
+
+  /* Footer */
+  .footer { padding: 44px 0 26px; }
+  .footer-grid { gap: 28px; margin-bottom: 36px; }
+  .dpiit-badge { font-size: 11px; }
+  .footer-brand b { font-size: 18px; }
+}
+
+/* ============ Extra-small — 360px and below ============ */
+@media (max-width: 360px) {
+  .hero h1 { font-size: 28px; }
+  .nav-brand img { height: 36px; width: 36px; }
+  .nav-brand .wordmark b { font-size: 14px; }
+  .hero-meta { gap: 12px; }
+  .hero-meta .stat b { font-size: 18px; }
+  .prop-pills { flex-direction: column; }
+  .prop-pills button { flex-direction: row; justify-content: center; padding: 10px 14px; }
+}
   </style>
 </head>
 <body>
