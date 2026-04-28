@@ -14,7 +14,7 @@ const CALNT_CONFIG = {
   },
 
   googleSheets: {
-    scriptUrl: 'https://script.google.com/macros/s/AKfycbxHcli--_ljNxem6fCBytOVg7tmxojVUHDvnLEQTaUNj8o7DPSyFyR4MU4o6-z57-ZW/exec', // replace
+    scriptUrl: 'https://script.google.com/macros/s/AKfycbyyVM9dSfdcEPueOtEsx2r2hKTGTKTfgisc5geGl4ZLc_vIWlMfxDIazvIf8I3MnnWp/exec', // replace
   }
 
 };
