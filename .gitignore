@@ -1,0 +1,7 @@
+# Credentials — never commit this
+config.js
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
