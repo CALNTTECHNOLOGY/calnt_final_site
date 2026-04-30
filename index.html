@@ -1170,28 +1170,25 @@ async function submitForm(e) {
     systemSize:     size + ' kW'
   };
 
-  /* Send to Google Sheets CRM via Apps Script */
-  try {
-    if (window.CALNT_CONFIG && CALNT_CONFIG.googleSheets.scriptUrl !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
-      const params = new URLSearchParams({
-        ref:          leadData.ref,
-        submittedAt:  leadData.submittedAt,
-        name:         leadData.name,
-        email:        leadData.email,
-        phone:        leadData.phone,
-        propertyType: leadData.propertyType,
-        city:         leadData.city,
-        pincode:      leadData.pincode,
-        monthlyBill:  leadData.avgMonthlyBill,
-        systemSize:   leadData.systemSize
-      });
-      await fetch(CALNT_CONFIG.googleSheets.scriptUrl + '?' + params.toString(), {
-        method: 'GET', mode: 'no-cors'
-      });
-      console.log('CRM: lead submitted');
-    }
-  } catch (err) {
-    console.error('CRM error:', err.message || err);
+  /* Send to Google Sheets CRM via Apps Script
+     Uses an Image request — zero CORS restrictions, works from any host */
+  if (window.CALNT_CONFIG && CALNT_CONFIG.googleSheets.scriptUrl !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+    const params = new URLSearchParams({
+      ref:          leadData.ref,
+      submittedAt:  leadData.submittedAt,
+      name:         leadData.name,
+      email:        leadData.email,
+      phone:        leadData.phone,
+      propertyType: leadData.propertyType,
+      city:         leadData.city,
+      pincode:      leadData.pincode,
+      monthlyBill:  leadData.avgMonthlyBill,
+      systemSize:   leadData.systemSize
+    });
+    const ping = new Image();
+    ping.src = CALNT_CONFIG.googleSheets.scriptUrl + '?' + params.toString();
+    ping.onload  = () => console.log('CRM: lead written to sheet');
+    ping.onerror = () => console.log('CRM: request sent (response unreadable — normal)');
   }
 
   /* Show success */
