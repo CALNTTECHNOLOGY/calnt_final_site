@@ -25,7 +25,12 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
+    const ref = 'CALNT-' + Date.now();
+    const submittedAt = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
     const params = new URLSearchParams({
+      ref,
+      submittedAt,
       name: name ?? '',
       phone: phone ?? '',
       email: email ?? '',
