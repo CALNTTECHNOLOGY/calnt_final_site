@@ -16,7 +16,7 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    const scriptUrl = import.meta.env.GOOGLE_SCRIPT_URL;
+    const scriptUrl = process.env.GOOGLE_SCRIPT_URL ?? import.meta.env.GOOGLE_SCRIPT_URL;
     if (!scriptUrl) {
       console.error('GOOGLE_SCRIPT_URL is not set');
       return new Response(JSON.stringify({ success: false, error: 'Server misconfiguration.' }), {
