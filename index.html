@@ -990,16 +990,6 @@ p { margin: 0; }
             <input type="range" id="form-size" min="1" max="10" step="1" value="3" oninput="document.getElementById('form-size-label').textContent=this.value+' kW'"/>
           </div>
 
-          <div class="field full">
-            <label for="f-calltime">Best time to call</label>
-            <select id="f-calltime">
-              <option value="anytime">Any time (we'll call within 24h)</option>
-              <option value="morning">Morning · 9 AM – 12 PM</option>
-              <option value="afternoon">Afternoon · 12 PM – 4 PM</option>
-              <option value="evening">Evening · 4 PM – 8 PM</option>
-              <option value="weekend">Weekend only</option>
-            </select>
-          </div>
         </div>
 
         <button type="submit" class="submit-btn">
@@ -1148,21 +1138,20 @@ function clearFieldError(f) {
 async function submitForm(e) {
   e.preventDefault();
 
-  const name     = document.getElementById('f-name').value.trim();
-  const email    = document.getElementById('f-email').value.trim();
-  const phone    = document.getElementById('f-phone').value.trim();
-  const city     = document.getElementById('f-city').value.trim();
-  const pincode  = document.getElementById('f-pincode').value.trim();
-  const bill     = document.getElementById('form-bill').value;
-  const size     = document.getElementById('form-size').value;
-  const callTime = document.getElementById('f-calltime').value;
+  const name    = document.getElementById('f-name').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const phone   = document.getElementById('f-phone').value.trim();
+  const city    = document.getElementById('f-city').value.trim();
+  const pincode = document.getElementById('f-pincode').value.trim();
+  const bill    = document.getElementById('form-bill').value;
+  const size    = document.getElementById('form-size').value;
 
   let valid = true;
-  if (!name)                              { setFieldError('name',    'Required');                    valid = false; } else clearFieldError('name');
-  if (!/^\S+@\S+\.\S+$/.test(email))     { setFieldError('email',   'Enter a valid email');          valid = false; } else clearFieldError('email');
-  if (!/^\d{10}$/.test(phone))           { setFieldError('phone',   'Enter a 10-digit mobile number'); valid = false; } else clearFieldError('phone');
-  if (!city)                              { setFieldError('city',    'Required');                    valid = false; } else clearFieldError('city');
-  if (!/^\d{6}$/.test(pincode))          { setFieldError('pincode', '6-digit pincode required');    valid = false; } else clearFieldError('pincode');
+  if (!name)                           { setFieldError('name',    'Required');                      valid = false; } else clearFieldError('name');
+  if (!/^\S+@\S+\.\S+$/.test(email))  { setFieldError('email',   'Enter a valid email');            valid = false; } else clearFieldError('email');
+  if (!/^\d{10}$/.test(phone))        { setFieldError('phone',   'Enter a 10-digit mobile number'); valid = false; } else clearFieldError('phone');
+  if (!city)                           { setFieldError('city',    'Required');                      valid = false; } else clearFieldError('city');
+  if (!/^\d{6}$/.test(pincode))       { setFieldError('pincode', '6-digit pincode required');      valid = false; } else clearFieldError('pincode');
   if (!valid) return;
 
   const submitBtn = document.querySelector('.submit-btn');
@@ -1171,87 +1160,42 @@ async function submitForm(e) {
 
   const ref = 'CALNT-' + Math.random().toString(36).slice(2, 8).toUpperCase();
   const submittedAt = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-  const callLabels = {
-    anytime:   'Any time (within 24h)',
-    morning:   'Morning · 9 AM – 12 PM',
-    afternoon: 'Afternoon · 12 PM – 4 PM',
-    evening:   'Evening · 4 PM – 8 PM',
-    weekend:   'Weekend only'
-  };
 
   const leadData = {
     ref, submittedAt, name, email,
-    phone: '+91 ' + phone,
-    propertyType: propType,
-    city, pincode,
+    phone:          '+91 ' + phone,
+    propertyType:   propType,
+    city,           pincode,
     avgMonthlyBill: '₹' + parseInt(bill).toLocaleString('en-IN'),
-    systemSize: size + ' kW',
-    bestTimeToCall: callLabels[callTime]
+    systemSize:     size + ' kW'
   };
 
-  /* 1 — Send email via EmailJS
-       NOTE: the "To" address is set inside your EmailJS template on emailjs.com,
-       not passed here. Make sure your template sends to info@calnt.com. */
-  try {
-    if (typeof emailjs !== 'undefined' && window.CALNT_CONFIG &&
-        CALNT_CONFIG.emailjs.publicKey !== 'YOUR_EMAILJS_PUBLIC_KEY') {
-      await emailjs.send(
-        CALNT_CONFIG.emailjs.serviceId,
-        CALNT_CONFIG.emailjs.templateId,
-        {
-          ref:           leadData.ref,
-          submitted_at:  leadData.submittedAt,
-          lead_name:     leadData.name,
-          lead_email:    leadData.email,
-          lead_phone:    leadData.phone,
-          property_type: leadData.propertyType,
-          city:          leadData.city,
-          pincode:       leadData.pincode,
-          monthly_bill:  leadData.avgMonthlyBill,
-          system_size:   leadData.systemSize,
-          best_time:     leadData.bestTimeToCall
-        }
-      );
-      console.log('EmailJS: sent OK');
-    } else {
-      console.warn('EmailJS: skipped — credentials not configured');
-    }
-  } catch (err) {
-    console.error('EmailJS error:', err.text || err.message || err);
-  }
-
-  /* 2 — Log to Google Sheets via Apps Script (GET — avoids redirect/CORS issues) */
+  /* Send to Google Sheets CRM via Apps Script */
   try {
     if (window.CALNT_CONFIG && CALNT_CONFIG.googleSheets.scriptUrl !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
       const params = new URLSearchParams({
-        ref:           leadData.ref,
-        submittedAt:   leadData.submittedAt,
-        name:          leadData.name,
-        email:         leadData.email,
-        phone:         leadData.phone,
-        propertyType:  leadData.propertyType,
-        city:          leadData.city,
-        pincode:       leadData.pincode,
-        monthlyBill:   leadData.avgMonthlyBill,
-        systemSize:    leadData.systemSize,
-        bestTime:      leadData.bestTimeToCall
+        ref:          leadData.ref,
+        submittedAt:  leadData.submittedAt,
+        name:         leadData.name,
+        email:        leadData.email,
+        phone:        leadData.phone,
+        propertyType: leadData.propertyType,
+        city:         leadData.city,
+        pincode:      leadData.pincode,
+        monthlyBill:  leadData.avgMonthlyBill,
+        systemSize:   leadData.systemSize
       });
-      // Use no-cors GET — Apps Script handles this without redirect issues
       await fetch(CALNT_CONFIG.googleSheets.scriptUrl + '?' + params.toString(), {
-        method: 'GET',
-        mode: 'no-cors'
+        method: 'GET', mode: 'no-cors'
       });
-      console.log('Google Sheets: request sent');
-    } else {
-      console.warn('Google Sheets: skipped — URL not configured');
+      console.log('CRM: lead submitted');
     }
   } catch (err) {
-    console.error('Google Sheets error:', err.message || err);
+    console.error('CRM error:', err.message || err);
   }
 
-  /* 3 — Show success */
+  /* Show success */
   const firstName = name.split(' ')[0];
-  const callLabel = callLabels[callTime];
   document.getElementById('lead-container').innerHTML = `
     <div class="success-state" style="grid-column:1/-1;color:white">
       <div class="check">
@@ -1259,7 +1203,7 @@ async function submitForm(e) {
       </div>
       <h3 style="color:white">Thanks ${firstName}, you're in.</h3>
       <p style="color:oklch(0.85 0 0);max-width:520px;margin:0 auto">
-        Our engineer will call you (${callLabel}) to schedule a free site survey at ${city}.
+        Our engineer will be in touch shortly to schedule a free site survey at ${city}.
       </p>
       <div class="ref" style="background:oklch(1 0 0 / 0.10);color:white">Ref: ${ref}</div>
     </div>`;
