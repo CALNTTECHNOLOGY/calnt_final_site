@@ -49,6 +49,10 @@ export default function LeadForm() {
       if (!res.ok || !json.success) {
         throw new Error(json.error || 'Submission failed');
       }
+      // Fire Google Ads conversion
+      if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'ads_conversion_Submit_lead_form_1', {});
+      }
       setStatus('success');
     } catch (err: unknown) {
       setStatus('error');
