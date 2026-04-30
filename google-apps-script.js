@@ -46,7 +46,7 @@ const COL = {
 
 // ─── Main GET handler ─────────────────────────────────────────────────────────
 function doGet(e) {
-  const p = e.parameter || {};
+  const p = (e && e.parameter) ? e.parameter : {};
 
   // Health check (no params)
   if (!p.ref) {
