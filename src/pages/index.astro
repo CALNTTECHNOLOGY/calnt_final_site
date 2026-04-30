@@ -1,0 +1,371 @@
+---
+import Calculator from '../components/Calculator.tsx';
+import LeadForm from '../components/LeadForm.tsx';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CALNT Technology – Solar EPC Solutions</title>
+  <meta name="description" content="CALNT Technology delivers end-to-end solar EPC solutions across India. Get PM Surya Ghar subsidy up to ₹78,000 and start saving on your electricity bill today." />
+  <link rel="icon" type="image/jpeg" href="/calnt-logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<header class="nav">
+  <div class="container">
+    <nav class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="/calnt-logo.jpg" alt="CALNT Logo" />
+        <div class="wordmark">
+          <b>CALNT</b>
+          <span>TECHNOLOGY LTD</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="#benefits">Benefits</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="tel:+91XXXXXXXXXX" class="btn btn-ghost">Call Us</a>
+        <a href="#contact" class="btn btn-primary">Get Free Quote</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+    <div class="mobile-drawer" id="mobileDrawer">
+      <div class="container">
+        <a href="#benefits">Benefits</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#contact">Get Free Quote</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="pill"><span class="dot"></span> PM Surya Ghar Yojana Approved</div>
+        <h1>Power Your Home with Solar Energy</h1>
+        <p class="hero-sub">
+          CALNT Technology delivers complete solar EPC solutions — from design and supply to installation and grid connection. Claim up to <strong>₹78,000 in government subsidy</strong> and slash your electricity bill.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary btn-lg">Get Free Assessment →</a>
+          <a href="#calculator" class="btn btn-ghost btn-lg">Calculate Savings</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <b>500+</b>
+            <span>Installations</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <b>₹78K</b>
+            <span>Max Subsidy</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <b>25 yr</b>
+            <span>Panel Warranty</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="/rooftop-hero.jpg" alt="Solar panels on rooftop" class="hero-img" />
+        <div class="hero-badge">
+          <div class="hero-badge-icon">☀️</div>
+          <div>
+            <b>Free Site Survey</b>
+            <span>Within 48 hours</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PM SURYA GHAR BENEFITS ==================== -->
+<section class="section bg-alt" id="benefits">
+  <div class="container">
+    <div class="section-header">
+      <div class="pill"><span class="dot"></span> Government Scheme</div>
+      <h2>PM Surya Ghar Muft Bijli Yojana</h2>
+      <p class="section-sub">India's largest rooftop solar scheme — get direct subsidies into your bank account and enjoy free electricity every month.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card benefit-card-large">
+        <div class="benefit-icon sun">₹</div>
+        <h3>Direct Subsidy up to ₹78,000</h3>
+        <p>Central government subsidy deposited directly to your bank account. No middlemen, no delays.</p>
+        <div class="subsidy-table">
+          <div class="subsidy-row">
+            <span>Up to 1 kW</span>
+            <b>₹30,000</b>
+          </div>
+          <div class="subsidy-row">
+            <span>1 kW – 2 kW</span>
+            <b>₹60,000</b>
+          </div>
+          <div class="subsidy-row highlight-row">
+            <span>2 kW – 3 kW</span>
+            <b>₹78,000</b>
+          </div>
+        </div>
+      </div>
+      <div class="benefits-list">
+        <div class="benefit-item">
+          <div class="benefit-item-icon">⚡</div>
+          <div>
+            <h4>300 Units Free Electricity</h4>
+            <p>Eligible households receive up to 300 units of free electricity per month through net metering.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-item-icon">🏦</div>
+          <div>
+            <h4>Collateral-Free Loans</h4>
+            <p>Access subsidised solar loans at low interest rates from nationalised banks.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-item-icon">📊</div>
+          <div>
+            <h4>Online Portal & Tracking</h4>
+            <p>Track subsidy status, net meter requests and payments on the national portal.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-item-icon">🔄</div>
+          <div>
+            <h4>Net Metering & Export Income</h4>
+            <p>Sell surplus power back to the grid and earn credits on your electricity bill.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SERVICES ==================== -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-header">
+      <div class="pill"><span class="dot"></span> What We Do</div>
+      <h2>Complete Solar EPC Services</h2>
+      <p class="section-sub">Engineering, Procurement & Construction — we handle everything so you don't have to.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📐</div>
+        <h3>Site Assessment & Design</h3>
+        <p>Detailed shadow analysis, load assessment, and system design optimised for maximum generation and payback.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📋</div>
+        <h3>Subsidy Application</h3>
+        <p>We handle the entire PM Surya Ghar paperwork — registration, DISCOM approval, and subsidy claim on your behalf.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <h3>Installation & Commissioning</h3>
+        <p>Certified technicians, premium-grade panels and inverters, professional mounting systems and clean wiring.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔌</div>
+        <h3>Net Meter & Grid Connection</h3>
+        <p>Complete DISCOM liaison, net meter installation coordination, and grid synchronisation testing.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📡</div>
+        <h3>Remote Monitoring</h3>
+        <p>Real-time production monitoring via mobile app. Track savings, performance and system health 24/7.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <h3>AMC & After-Sales Support</h3>
+        <p>Annual Maintenance Contracts, rapid fault response, and performance guarantees backed by CALNT.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROCESS ==================== -->
+<section class="section bg-alt" id="process">
+  <div class="container">
+    <div class="section-header">
+      <div class="pill"><span class="dot"></span> How It Works</div>
+      <h2>From Enquiry to Energisation</h2>
+      <p class="section-sub">A transparent, hassle-free process from your first call to the day your panels start generating.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="process-num">01</div>
+        <div class="process-content">
+          <h3>Free Consultation</h3>
+          <p>Submit your details below. Our advisor calls within 24 hours to understand your requirements and electricity usage.</p>
+        </div>
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="process-num">02</div>
+        <div class="process-content">
+          <h3>Site Survey</h3>
+          <p>Our engineer visits your property to assess roof condition, shading, structural strength, and load requirements.</p>
+        </div>
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="process-num">03</div>
+        <div class="process-content">
+          <h3>Proposal & Subsidy Filing</h3>
+          <p>Detailed proposal with costs, savings projections, and subsidy calculations. We file the PM Surya Ghar application for you.</p>
+        </div>
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="process-num">04</div>
+        <div class="process-content">
+          <h3>Installation</h3>
+          <p>Panels installed in 1–3 days by certified teams. All work is clean, safe, and DISCOM-compliant.</p>
+        </div>
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="process-num">05</div>
+        <div class="process-content">
+          <h3>Subsidy Credited</h3>
+          <p>Net meter installed, system commissioned, and subsidy deposited directly to your bank account.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CALCULATOR ==================== -->
+<section class="section" id="calculator">
+  <div class="container">
+    <div class="section-header">
+      <div class="pill"><span class="dot"></span> Savings Estimator</div>
+      <h2>How Much Could You Save?</h2>
+      <p class="section-sub">Enter your monthly electricity bill and get an instant estimate of system size, cost, and payback period.</p>
+    </div>
+    <Calculator client:load />
+  </div>
+</section>
+
+<!-- ==================== CONTACT FORM ==================== -->
+<section class="section bg-alt" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="pill"><span class="dot"></span> Get Started Today</div>
+        <h2>Book Your Free Solar Assessment</h2>
+        <p>No cost, no commitment. A CALNT solar advisor will call you within 24 hours and a site survey will be arranged at your convenience.</p>
+        <div class="contact-trust">
+          <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            <span>Free site survey — no obligation</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            <span>PM Surya Ghar subsidy managed end-to-end</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            <span>Certified installers, premium components</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            <span>25-year panel performance warranty</span>
+          </div>
+        </div>
+        <div class="contact-direct">
+          <a href="mailto:info@calnt.com" class="contact-link">
+            <span>📧</span> info@calnt.com
+          </a>
+          <a href="tel:+91XXXXXXXXXX" class="contact-link">
+            <span>📞</span> +91 XXXXX XXXXX
+          </a>
+        </div>
+      </div>
+      <div class="contact-form-wrap">
+        <LeadForm client:load />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/" class="nav-brand">
+          <img src="/calnt-logo.jpg" alt="CALNT Logo" />
+          <div class="wordmark">
+            <b>CALNT</b>
+            <span>TECHNOLOGY LTD</span>
+          </div>
+        </a>
+        <p class="footer-tagline">Engineering a solar-powered India — one rooftop at a time.</p>
+      </div>
+      <div class="footer-links-group">
+        <h4>Company</h4>
+        <a href="#services">Services</a>
+        <a href="#process">How It Works</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-links-group">
+        <h4>Scheme</h4>
+        <a href="#benefits">PM Surya Ghar Yojana</a>
+        <a href="#benefits">Subsidy Calculator</a>
+        <a href="#benefits">Net Metering</a>
+      </div>
+      <div class="footer-links-group">
+        <h4>Get in Touch</h4>
+        <a href="mailto:info@calnt.com">info@calnt.com</a>
+        <a href="tel:+91XXXXXXXXXX">+91 XXXXX XXXXX</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© {new Date().getFullYear()} CALNT Technology Ltd. All rights reserved.</p>
+      <p>Registered Solar EPC Contractor | PM Surya Ghar Empanelled</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const drawer = document.getElementById('mobileDrawer');
+  menuBtn?.addEventListener('click', () => {
+    drawer?.classList.toggle('open');
+  });
+  // Close drawer when a link is clicked
+  drawer?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => drawer.classList.remove('open'));
+  });
+</script>
+
+</body>
+</html>

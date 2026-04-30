@@ -1,7 +1,13 @@
+# Astro build output
+dist/
+.astro/
+
+# Environment variables — set these in Netlify dashboard, not in git
+.env
+.env.local
+
 # OS / editor
 .DS_Store
 Thumbs.db
 .vscode/
-
-# config.js intentionally NOT ignored so Netlify can deploy it via GitHub
-# config.js
+node_modules/
