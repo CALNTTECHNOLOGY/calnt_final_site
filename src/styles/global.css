@@ -1,12 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  /* Taken from the CALNT logo */
-  --color-brand: #0a6fb5;      /* logo blue */
-  --color-brand-dark: #085a93;
-  --color-leaf: #2f9e3a;       /* logo green */
-  --color-sun: #f59e0b;        /* logo sun */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* CALNT palette, from the logo */
+  --color-forest: #0c3b27;      /* deep green for dark sections */
+  --color-forest-2: #114a32;
+  --color-leaf: #2f9e3a;        /* logo green: primary buttons */
+  --color-leaf-dark: #26832f;
+  --color-mint: #ecf6ee;        /* light section background */
+  --color-brand: #0a6fb5;       /* logo blue */
+  --color-sun: #f5a623;         /* logo sun: energy accents */
+  --color-ink: #14181b;         /* footer */
+  --font-sans: "Outfit Variable", ui-sans-serif, system-ui, sans-serif;
 }
 
 html { scroll-behavior: smooth; }
+body { background: #f8fbf8; }
+
+@utility container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
+@utility eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-leaf; }
+@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-semibold transition-colors; }
+@utility btn-primary { @apply btn bg-leaf text-white hover:bg-leaf-dark; }
+@utility btn-ghost-light { @apply btn px-2 text-white hover:text-sun; }
+@utility btn-outline { @apply btn border border-leaf text-leaf hover:bg-leaf hover:text-white; }
+@utility h-display { @apply text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl; }
+@utility h-section { @apply text-3xl font-semibold tracking-tight sm:text-4xl; }
+
+/* Animated energy flow in the hero diagram */
+@keyframes flow { to { stroke-dashoffset: -40; } }
+.flow { stroke-dasharray: 8 12; animation: flow 1.4s linear infinite; }
+@keyframes pulse-ring { 0%, 100% { opacity: .35; } 50% { opacity: .9; } }
+.node-ring { animation: pulse-ring 3s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .flow, .node-ring { animation: none; }
+}

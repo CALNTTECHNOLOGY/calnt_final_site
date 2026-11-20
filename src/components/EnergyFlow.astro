@@ -1,0 +1,40 @@
+---
+// Animated diagram: sun → panels → inverter → building, with surplus exported to the grid.
+const nodes = [
+  { id: 'sun', x: 250, y: 60, label: 'Sunlight', icon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>' },
+  { id: 'panels', x: 410, y: 170, label: 'Solar Panels', icon: '<path d="M5 6h14l2 10H3z"/><path d="M4 11h16M9.5 6l-.8 10M14.5 6l.8 10M12 16v4M8 20h8"/>' },
+  { id: 'inverter', x: 250, y: 250, label: 'Inverter', side: true, icon: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M7 13c1.5-3 3.5-3 5 0s3.5 3 5 0"/>' },
+  { id: 'home', x: 250, y: 420, label: 'Home / Business', icon: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>' },
+  { id: 'grid', x: 90, y: 330, label: 'Grid · Net Meter', icon: '<path d="M12 2L7 22M12 2l5 20M8.5 9h7M7.5 14h9M6 22h12"/>' },
+];
+const flows = [
+  'M250 60 Q 360 70 410 170',
+  'M410 170 Q 360 240 250 250',
+  'M250 250 L 250 420',
+  'M250 250 Q 130 250 90 330',
+];
+---
+<figure class="relative mx-auto w-full max-w-lg" aria-label="How solar power flows from the sun to your building and the grid">
+  <svg viewBox="0 0 500 480" class="w-full" role="img" aria-hidden="true">
+    <g fill="none" stroke="rgba(255,255,255,0.08)">
+      <circle cx="250" cy="250" r="190" />
+      <circle cx="250" cy="250" r="110" />
+      <path d="M250 40v420M40 250h420" />
+    </g>
+    {flows.map((d) => (
+      <g fill="none" stroke-linecap="round">
+        <path d={d} stroke="rgba(245,166,35,0.18)" stroke-width="6" />
+        <path d={d} class="flow" stroke="#f5a623" stroke-width="3" />
+      </g>
+    ))}
+    {nodes.map((n) => (
+      <g transform={`translate(${n.x} ${n.y})`}>
+        <circle r="38" fill="rgba(47,158,58,0.10)" class="node-ring" />
+        <circle r="28" fill="#114a32" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" />
+        <g transform="translate(-12 -12)" fill="none" stroke={n.id === 'sun' ? '#f5a623' : '#ffffff'} stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={n.icon} />
+        <text x={n.side ? 34 : 0} y={n.side ? 40 : 52} text-anchor={n.side ? "start" : "middle"} fill="rgba(255,255,255,0.75)" font-size="13" font-family="inherit">{n.label}</text>
+      </g>
+    ))}
+  </svg>
+  <figcaption class="mt-1 text-center text-sm text-green-100/60">Designed, supplied and installed by one team.</figcaption>
+</figure>

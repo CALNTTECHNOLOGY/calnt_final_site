@@ -1,92 +1,210 @@
 ---
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import EnergyFlow from '../components/EnergyFlow.astro';
 import { site } from '../site.config';
 import hero from '../assets/rooftop-hero.jpg';
 
-const segments = [
+const tel = `tel:${site.phone.replace(/\s/g, '')}`;
+
+const tabs = [
   {
-    title: 'Residential Solar',
-    text: 'Rooftop solar for independent houses, villas and apartments. Cut your monthly electricity bill, with help on PM Surya Ghar subsidy paperwork.',
-    href: '/services#residential',
+    id: 'res',
+    label: 'Residential',
+    title: 'Solar for your home',
+    intro: 'Independent houses, villas and apartments. Cut your electricity bill and get the government subsidy.',
+    steps: [
+      ['Free site survey', 'We check your roof, shading and last few electricity bills.'],
+      ['System design & quote', 'A right-sized on-grid system with a clear, itemised price.'],
+      ['Subsidy paperwork', 'We guide your PM Surya Ghar application from start to finish.'],
+      ['Install & net metering', 'Neat installation, DISCOM approvals and switch-on.'],
+    ],
   },
   {
-    title: 'Commercial Solar',
-    text: 'Rooftop and ground-mounted systems for offices, factories, schools, hospitals and warehouses. Lower operating costs and meet sustainability goals.',
-    href: '/services#commercial',
+    id: 'com',
+    label: 'Commercial',
+    title: 'Solar for your business',
+    intro: 'Offices, factories, warehouses, schools and hospitals. Lower operating costs with a fast payback.',
+    steps: [
+      ['Load & roof assessment', 'We study your consumption pattern and available roof or ground area.'],
+      ['Engineering & proposal', 'Detailed design, generation estimate and financial returns.'],
+      ['Procurement', 'Quality panels, inverters and structures sourced for your project.'],
+      ['Construction & commissioning', 'Safe installation, testing, approvals and handover.'],
+    ],
   },
 ];
 
-const steps = [
-  { title: 'Site survey', text: 'We assess your roof, shading and power usage.' },
-  { title: 'Design & quote', text: 'A system sized to your needs, with a clear, itemised quote.' },
-  { title: 'Installation', text: 'Quality panels, inverters and structures installed by our team.' },
-  { title: 'Net metering & handover', text: 'We handle DISCOM paperwork and commission your system.' },
+const typical = [
+  'Separate vendors for design, panels and installation',
+  'No single point of contact when something goes wrong',
+  'You chase the electricity board for approvals',
+  'Subsidy forms left to you',
+  'Warranty claims bounced between suppliers',
 ];
+const ours = [
+  'One company engineers, procures and builds your system',
+  'One point of contact from survey to switch-on',
+  'Net metering and DISCOM approvals handled for you',
+  'PM Surya Ghar subsidy support for eligible homes',
+  'One team to call for service and warranty support',
+];
+const pillars = [
+  { title: 'End-to-end EPC', text: 'Engineering, procurement and construction under one roof.', icon: '<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/>' },
+  { title: 'Single accountability', text: 'One contract covers the whole project. No finger-pointing.', icon: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/>' },
+  { title: 'Built to last', text: 'Quality components and careful, code-compliant installation.', icon: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4 2.5-2.5z"/>' },
+];
+const sectors = ['Independent Houses', 'Villas', 'Apartments', 'Offices', 'Factories', 'Warehouses', 'Schools & Colleges', 'Hospitals', 'Retail & Showrooms', 'Hotels'];
 ---
 <Layout>
-  <section class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 md:grid-cols-2 md:py-20">
-    <div>
-      <p class="font-semibold text-leaf">Solar EPC · Residential & Commercial</p>
-      <h1 class="mt-3 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
-        Switch to solar. <span class="text-brand">Save on every bill.</span>
-      </h1>
-      <p class="mt-5 text-lg text-slate-600">
-        {site.legalName} designs, supplies and installs complete solar power systems
-        for homes and businesses across India, from first survey to switch-on.
-      </p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a href="/contact" class="rounded-lg bg-brand px-5 py-3 font-semibold text-white hover:bg-brand-dark">Get a free quote</a>
-        <a href={`https://wa.me/${site.whatsapp}`} class="rounded-lg border border-leaf px-5 py-3 font-semibold text-leaf hover:bg-leaf hover:text-white" rel="noopener">WhatsApp us</a>
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-forest text-white">
+    <div class="pointer-events-none absolute -left-40 top-20 h-[28rem] w-[28rem] rounded-full bg-leaf/15 blur-3xl"></div>
+    <div class="container-x relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
+      <div>
+        <p class="eyebrow text-green-300">Solar EPC · Residential & Commercial</p>
+        <h1 class="h-display mt-5">Your roof.<br />Your power.<br /><span class="text-sun">Your savings.</span></h1>
+        <p class="mt-6 max-w-lg text-lg text-green-100/80">
+          CALNT Technology designs, supplies and installs complete solar power systems for homes
+          and businesses across India. One team, from first survey to switch-on.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href="/contact" class="btn-primary">Get a Free Quote</a>
+          <a href="/services" class="btn-ghost-light">Explore our services →</a>
+        </div>
+      </div>
+      <EnergyFlow />
+    </div>
+    <div class="relative border-t border-white/10">
+      <div class="container-x flex flex-wrap justify-center gap-x-10 gap-y-3 py-6 text-sm text-green-100/70">
+        <span>✓ Free site survey</span>
+        <span>✓ PM Surya Ghar subsidy support</span>
+        <span>✓ Net metering handled</span>
+        <span>✓ One point of contact</span>
       </div>
     </div>
-    <Image
-      src={hero}
-      alt="Solar panels installed on a rooftop by CALNT Technology"
-      widths={[400, 720]}
-      sizes="(min-width: 768px) 50vw, 100vw"
-      loading="eager"
-      fetchpriority="high"
-      class="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg md:aspect-[4/5]"
-    />
   </section>
 
-  <section class="bg-slate-50">
-    <div class="mx-auto max-w-6xl px-4 py-16">
-      <h2 class="text-3xl font-bold text-slate-900">Solar solutions for every roof</h2>
-      <div class="mt-8 grid gap-6 md:grid-cols-2">
-        {segments.map((s) => (
-          <a href={s.href} class="group rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:ring-brand">
-            <h3 class="text-xl font-semibold text-slate-900 group-hover:text-brand">{s.title}</h3>
-            <p class="mt-2 text-slate-600">{s.text}</p>
-            <span class="mt-4 inline-block font-semibold text-brand">Learn more →</span>
-          </a>
+  <!-- HOW IT WORKS (CSS-only tabs) -->
+  <section class="bg-mint">
+    <div class="container-x py-20">
+      <div class="text-center">
+        <p class="eyebrow">How it works</p>
+        <h2 class="h-section mt-3 text-slate-900">From survey to switch-on.</h2>
+        <p class="mt-3 text-lg text-slate-600">Choose your project type to see what we take care of.</p>
+      </div>
+
+      <div class="group/tabs mt-10">
+        <input type="radio" name="tab" id="tab-res" class="peer/res sr-only" checked />
+        <input type="radio" name="tab" id="tab-com" class="peer/com sr-only" />
+        <div class="flex justify-center gap-2" role="tablist">
+          <label for="tab-res" class="cursor-pointer rounded-full bg-white px-6 py-2.5 font-medium ring-1 ring-slate-200 group-has-[#tab-res:checked]/tabs:bg-forest group-has-[#tab-res:checked]/tabs:text-white group-has-[#tab-res:checked]/tabs:ring-forest group-has-[#tab-res:focus-visible]/tabs:outline-2 group-has-[#tab-res:focus-visible]/tabs:outline-leaf">Residential</label>
+          <label for="tab-com" class="cursor-pointer rounded-full bg-white px-6 py-2.5 font-medium ring-1 ring-slate-200 group-has-[#tab-com:checked]/tabs:bg-forest group-has-[#tab-com:checked]/tabs:text-white group-has-[#tab-com:checked]/tabs:ring-forest group-has-[#tab-com:focus-visible]/tabs:outline-2 group-has-[#tab-com:focus-visible]/tabs:outline-leaf">Commercial</label>
+        </div>
+
+        {tabs.map((t) => (
+          <div class:list={['mt-10 hidden gap-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100 sm:p-10 lg:grid-cols-2', t.id === 'res' ? 'peer-checked/res:grid' : 'peer-checked/com:grid']}>
+            <div>
+              <h3 class="text-2xl font-semibold text-slate-900">{t.title}</h3>
+              <p class="mt-2 text-slate-600">{t.intro}</p>
+              <ol class="mt-8 space-y-6">
+                {t.steps.map(([title, text], i) => (
+                  <li class="flex gap-4">
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sun/15 font-semibold text-amber-700">{i + 1}</span>
+                    <div><p class="font-semibold text-slate-900">{title}</p><p class="text-slate-600">{text}</p></div>
+                  </li>
+                ))}
+              </ol>
+              <a href={`/services#${t.id === 'res' ? 'residential' : 'commercial'}`} class="mt-8 inline-block font-semibold text-leaf hover:underline">Learn more about {t.label.toLowerCase()} solar →</a>
+            </div>
+            {t.id === 'res' ? (
+              <Image src={hero} alt="Rooftop solar panels installed by CALNT Technology" widths={[400, 720]} sizes="(min-width: 1024px) 40vw, 100vw" class="h-full max-h-[520px] w-full rounded-2xl object-cover" />
+            ) : (
+              <div class="flex flex-col justify-center rounded-2xl bg-forest p-8 text-white">
+                <p class="eyebrow text-green-300">Why businesses go solar</p>
+                <ul class="mt-6 space-y-4 text-lg">
+                  <li class="flex gap-3"><span class="text-leaf">✓</span>Cut daytime electricity costs</li>
+                  <li class="flex gap-3"><span class="text-leaf">✓</span>Protect against rising tariffs</li>
+                  <li class="flex gap-3"><span class="text-leaf">✓</span>Use idle roof space productively</li>
+                  <li class="flex gap-3"><span class="text-leaf">✓</span>Meet sustainability and ESG goals</li>
+                </ul>
+                <a href="/contact" class="btn-primary mt-8 self-start">Request a proposal</a>
+              </div>
+            )}
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-6xl px-4 py-16">
-    <h2 class="text-3xl font-bold text-slate-900">How it works</h2>
-    <p class="mt-2 text-slate-600">One team handles everything: engineering, procurement and construction.</p>
-    <ol class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {steps.map((s, i) => (
-        <li class="rounded-2xl p-6 ring-1 ring-slate-200">
-          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-sun/15 font-bold text-amber-700">{i + 1}</span>
-          <h3 class="mt-4 font-semibold text-slate-900">{s.title}</h3>
-          <p class="mt-1 text-slate-600">{s.text}</p>
-        </li>
-      ))}
-    </ol>
+  <!-- WHY CALNT -->
+  <section class="bg-forest text-white">
+    <div class="container-x py-20">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="eyebrow text-green-300">Why CALNT</p>
+        <h2 class="h-section mt-3">One company. One contract.<br class="hidden sm:block" /> Zero hassle.</h2>
+        <p class="mt-4 text-lg text-green-100/70">Most solar headaches start when work is split between vendors. We take care of all of it.</p>
+      </div>
+      <div class="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
+        <div class="rounded-2xl bg-white/5 p-7 ring-1 ring-white/10">
+          <p class="eyebrow text-slate-400">The usual way</p>
+          <h3 class="mt-2 text-xl font-medium text-slate-300">Many vendors. Many problems.</h3>
+          <ul class="mt-6 space-y-3 text-slate-400">
+            {typical.map((t) => <li class="flex gap-3"><span class="text-red-400">✕</span>{t}</li>)}
+          </ul>
+        </div>
+        <div class="rounded-2xl bg-forest-2 p-7 ring-1 ring-leaf/50">
+          <p class="eyebrow text-green-300">The CALNT way</p>
+          <h3 class="mt-2 text-xl font-semibold">One team. Complete system.</h3>
+          <ul class="mt-6 space-y-3 text-green-50">
+            {ours.map((t) => <li class="flex gap-3"><span class="text-leaf">✓</span>{t}</li>)}
+          </ul>
+        </div>
+      </div>
+      <div class="mx-auto mt-16 grid max-w-4xl gap-10 text-center sm:grid-cols-3">
+        {pillars.map((p) => (
+          <div>
+            <svg class="mx-auto h-8 w-8 text-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={p.icon} />
+            <h3 class="mt-4 text-lg font-semibold">{p.title}</h3>
+            <p class="mt-1 text-sm text-green-100/60">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   </section>
 
-  <section class="bg-brand">
-    <div class="mx-auto max-w-6xl px-4 py-14 text-center text-white">
-      <h2 class="text-3xl font-bold">Find out how much you can save</h2>
-      <p class="mt-2 text-blue-100">Free site survey and quote, with no obligation.</p>
-      <div class="mt-6 flex flex-wrap justify-center gap-3">
-        <a href="/contact" class="rounded-lg bg-white px-5 py-3 font-semibold text-brand hover:bg-blue-50">Request a quote</a>
-        <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="rounded-lg border border-white/60 px-5 py-3 font-semibold hover:bg-white/10">Call {site.phone}</a>
+  <!-- WHO WE SERVE + SUBSIDY -->
+  <section class="bg-mint">
+    <div class="container-x grid gap-12 py-20 lg:grid-cols-2 lg:items-center">
+      <div>
+        <p class="eyebrow">Who we serve</p>
+        <h2 class="h-section mt-3 text-slate-900">Solar for every kind of building.</h2>
+        <p class="mt-3 text-lg text-slate-600">If it has a roof and an electricity bill, we can help it save.</p>
+        <ul class="mt-8 flex flex-wrap gap-2">
+          {sectors.map((s) => <li class="rounded-full bg-white px-4 py-2 text-sm ring-1 ring-slate-200">{s}</li>)}
+        </ul>
+      </div>
+      <div class="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-100 sm:p-10">
+        <p class="eyebrow text-amber-600">Government subsidy</p>
+        <h3 class="mt-3 text-2xl font-semibold text-slate-900">PM Surya Ghar Muft Bijli Yojana</h3>
+        <p class="mt-3 text-slate-600">
+          Eligible homes can get a central government subsidy of <strong class="text-slate-900">up to ₹78,000</strong>,
+          paid directly into your bank account. We help you check eligibility and complete the application.
+        </p>
+        <a href="/contact" class="btn-outline mt-6">Check my eligibility</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative overflow-hidden bg-forest text-white">
+    <div class="pointer-events-none absolute left-1/2 top-0 h-80 w-[40rem] -translate-x-1/2 rounded-full bg-leaf/20 blur-3xl"></div>
+    <div class="container-x relative py-20 text-center">
+      <p class="eyebrow text-green-300">Ready to start?</p>
+      <h2 class="h-section mx-auto mt-3 max-w-2xl">Find out how much you can save with solar.</h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-green-100/70">Share your location and electricity bill. We'll survey your site and send a clear, no-obligation quote.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/contact" class="btn-primary">Get a Free Quote</a>
+        <a href={tel} class="btn border border-white/30 text-white hover:bg-white/10">Call {site.phone}</a>
       </div>
     </div>
   </section>

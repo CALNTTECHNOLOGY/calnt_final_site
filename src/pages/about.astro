@@ -4,22 +4,22 @@ import PageHeader from '../components/PageHeader.astro';
 import { site } from '../site.config';
 ---
 <Layout title="About Us" description={`About ${site.legalName}, a solar EPC company helping homes and businesses across India switch to clean, affordable solar power.`}>
-  <PageHeader title="About CALNT Technology" intro="Engineering a solar-powered India, one rooftop at a time." />
+  <PageHeader eyebrow="About us" title="Engineering a solar-powered India." intro="One rooftop at a time." />
   <article class="mx-auto max-w-3xl space-y-5 px-4 py-14 text-lg leading-relaxed text-slate-700">
     <p>
       {site.legalName} is a solar EPC company. We engineer, procure and construct solar power
       systems for residential and commercial customers, managing the whole project so our clients
       don't have to.
     </p>
-    <h2 class="pt-4 text-2xl font-bold text-slate-900">Our mission</h2>
+    <h2 class="pt-6 text-2xl font-semibold text-slate-900">Our mission</h2>
     <p>To make clean, reliable solar energy simple and affordable for every home and business in India.</p>
-    <h2 class="pt-4 text-2xl font-bold text-slate-900">Why choose us</h2>
-    <ul class="list-disc space-y-2 pl-6">
-      <li><strong>One point of contact</strong> from site survey to commissioning</li>
-      <li><strong>Systems designed for you</strong>, based on your roof and your power usage</li>
-      <li><strong>Quality components</strong> and careful, safe installation</li>
-      <li><strong>Paperwork handled</strong>, including net metering and subsidy applications</li>
+    <h2 class="pt-6 text-2xl font-semibold text-slate-900">Why choose us</h2>
+    <ul class="space-y-3">
+      <li class="flex gap-3"><span class="text-leaf">✓</span><span><strong>One point of contact</strong> from site survey to commissioning</span></li>
+      <li class="flex gap-3"><span class="text-leaf">✓</span><span><strong>Systems designed for you</strong>, based on your roof and your power usage</span></li>
+      <li class="flex gap-3"><span class="text-leaf">✓</span><span><strong>Quality components</strong> and careful, safe installation</span></li>
+      <li class="flex gap-3"><span class="text-leaf">✓</span><span><strong>Paperwork handled</strong>, including net metering and subsidy applications</span></li>
     </ul>
-    <p class="pt-4"><a href="/contact" class="font-semibold text-brand hover:underline">Talk to us about your project →</a></p>
+    <p class="pt-4"><a href="/contact" class="btn-primary">Talk to us about your project</a></p>
   </article>
 </Layout>

@@ -1,7 +1,8 @@
 ---
+import '@fontsource-variable/outfit';
 import '../styles/global.css';
-import SEO from '../components/SEO.astro';
 import { Image } from 'astro:assets';
+import SEO from '../components/SEO.astro';
 import { site } from '../site.config';
 import logo from '../assets/logo-mark.png';
 
@@ -12,6 +13,7 @@ interface Props {
 }
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const year = new Date().getFullYear();
+const tel = `tel:${site.phone.replace(/\s/g, '')}`;
 ---
 <!doctype html>
 <html lang="en-IN">
@@ -20,43 +22,87 @@ const year = new Date().getFullYear();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#0a6fb5" />
+    <meta name="theme-color" content="#0c3b27" />
     <SEO {...Astro.props} />
     <slot name="head" />
   </head>
-  <body class="flex min-h-screen flex-col bg-white font-sans text-slate-800 antialiased">
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:p-3">Skip to content</a>
-    <header class="border-b border-slate-100">
-      <nav class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4" aria-label="Main">
+  <body class="flex min-h-screen flex-col font-sans text-slate-800 antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:p-3">Skip to content</a>
+
+    <header class="sticky top-0 z-40 border-b border-slate-200/70 bg-white/90 backdrop-blur">
+      <div class="container-x flex h-16 items-center justify-between gap-4">
         <a href="/" class="flex items-center gap-2" aria-label={`${site.name} home`}>
-          <Image src={logo} alt="" width={40} height={40} loading="eager" />
-          <span class="text-lg font-extrabold tracking-tight text-brand">CALNT <span class="font-semibold text-leaf">Technology</span></span>
+          <Image src={logo} alt="" width={36} height={36} loading="eager" />
+          <span class="text-lg font-bold tracking-tight text-brand">CALNT <span class="font-medium text-leaf">Technology</span></span>
         </a>
-        <ul class="flex flex-wrap gap-5 text-sm font-medium">
-          {site.nav.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                aria-current={path === item.href ? 'page' : undefined}
-                class:list={['hover:text-brand', path === item.href ? 'text-brand' : 'text-slate-600']}
-              >{item.label}</a>
-            </li>
+
+        <nav aria-label="Main" class="hidden items-center gap-8 md:flex">
+          {site.nav.filter((n) => n.href !== '/').map((item) => (
+            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}
+               class:list={['text-[15px] hover:text-leaf', path === item.href ? 'text-leaf font-medium' : 'text-slate-700']}>{item.label}</a>
           ))}
-        </ul>
-      </nav>
+        </nav>
+        <a href="/contact" class="btn-primary hidden py-2.5 md:inline-flex">Get a Free Quote</a>
+
+        <details class="group relative md:hidden">
+          <summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg ring-1 ring-slate-200" aria-label="Menu">
+            <svg class="h-5 w-5 group-open:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <svg class="hidden h-5 w-5 group-open:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </summary>
+          <nav aria-label="Mobile" class="absolute right-0 mt-2 w-56 rounded-xl bg-white p-2 shadow-lg ring-1 ring-slate-200">
+            {site.nav.map((item) => (
+              <a href={item.href} class="block rounded-lg px-3 py-2.5 hover:bg-mint">{item.label}</a>
+            ))}
+            <a href="/contact" class="btn-primary mt-1 w-full py-2.5">Get a Free Quote</a>
+          </nav>
+        </details>
+      </div>
     </header>
 
     <main id="main" class="flex-1">
       <slot />
     </main>
 
-    <footer class="border-t border-slate-100 text-sm text-slate-500">
-      <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 sm:flex-row sm:justify-between">
-        <p>© {year} {site.legalName}. All rights reserved.</p>
-        <p class="flex gap-4">
-          <a class="hover:text-brand" href={`mailto:${site.email}`}>{site.email}</a>
-          <a class="hover:text-brand" href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a>
-        </p>
+    <footer class="bg-ink text-slate-400">
+      <div class="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <a href="/" class="flex items-center gap-2">
+            <Image src={logo} alt="" width={32} height={32} class="rounded bg-white p-0.5" />
+            <span class="text-lg font-semibold text-white">CALNT Technology</span>
+          </a>
+          <p class="mt-4 text-sm leading-relaxed">End-to-end solar EPC for homes and businesses across India.</p>
+        </div>
+        <div>
+          <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Solutions</h2>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a class="hover:text-white" href="/services#residential">Residential Solar</a></li>
+            <li><a class="hover:text-white" href="/services#commercial">Commercial Solar</a></li>
+            <li><a class="hover:text-white" href="/services#epc">What EPC Covers</a></li>
+            <li><a class="hover:text-white" href="/services#faq">FAQs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Company</h2>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a class="hover:text-white" href="/about">About</a></li>
+            <li><a class="hover:text-white" href="/contact">Contact</a></li>
+            <li><a class="hover:text-white" href="/contact">Get a Free Quote</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Contact</h2>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a class="hover:text-white" href={tel}>{site.phone}</a></li>
+            <li><a class="hover:text-white" href={`mailto:${site.email}`}>{site.email}</a></li>
+            <li><a class="hover:text-white" href={`https://wa.me/${site.whatsapp}`} rel="noopener">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10">
+        <div class="container-x flex flex-col gap-2 py-6 text-xs sm:flex-row sm:justify-between">
+          <p>{site.legalName}</p>
+          <p>© {year} CALNT Technology. All rights reserved.</p>
+        </div>
       </div>
     </footer>
   </body>
