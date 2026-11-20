@@ -1,5 +1,5 @@
 ---
-import '@fontsource-variable/outfit';
+import '@fontsource-variable/plus-jakarta-sans';
 import '../styles/global.css';
 import { Image } from 'astro:assets';
 import SEO from '../components/SEO.astro';
@@ -22,38 +22,54 @@ const tel = `tel:${site.phone.replace(/\s/g, '')}`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#0c3b27" />
+    <meta name="theme-color" content="#072f52" />
     <SEO {...Astro.props} />
     <slot name="head" />
   </head>
-  <body class="flex min-h-screen flex-col font-sans text-slate-800 antialiased">
+  <body class="flex min-h-screen flex-col font-sans text-slate-700 antialiased">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:p-3">Skip to content</a>
 
-    <header class="sticky top-0 z-40 border-b border-slate-200/70 bg-white/90 backdrop-blur">
-      <div class="container-x flex h-16 items-center justify-between gap-4">
-        <a href="/" class="flex items-center gap-2" aria-label={`${site.name} home`}>
-          <Image src={logo} alt="" width={36} height={36} loading="eager" />
-          <span class="text-lg font-bold tracking-tight text-brand">CALNT <span class="font-medium text-leaf">Technology</span></span>
+    <!-- Top contact bar -->
+    <div class="hidden bg-navy text-sm text-blue-100 sm:block">
+      <div class="container-x flex h-10 items-center justify-between">
+        <p>Solar EPC for homes &amp; businesses across India</p>
+        <div class="flex items-center gap-6">
+          <a href={tel} class="hover:text-white">{site.phone}</a>
+          <a href={`mailto:${site.email}`} class="hover:text-white">{site.email}</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white">
+      <div class="container-x flex h-[72px] items-center justify-between gap-4">
+        <a href="/" class="flex items-center gap-2.5" aria-label={`${site.name} home`}>
+          <Image src={logo} alt="" width={42} height={42} loading="eager" />
+          <span class="leading-tight">
+            <span class="block text-lg font-extrabold tracking-tight text-brand">CALNT</span>
+            <span class="block text-[11px] font-semibold uppercase tracking-wider text-leaf">Technology Pvt. Ltd.</span>
+          </span>
         </a>
 
         <nav aria-label="Main" class="hidden items-center gap-8 md:flex">
-          {site.nav.filter((n) => n.href !== '/').map((item) => (
+          {site.nav.map((item) => (
             <a href={item.href} aria-current={path === item.href ? 'page' : undefined}
-               class:list={['text-[15px] hover:text-leaf', path === item.href ? 'text-leaf font-medium' : 'text-slate-700']}>{item.label}</a>
+               class:list={['relative py-6 text-[15px] font-medium hover:text-brand',
+                 path === item.href ? 'text-brand after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-brand' : 'text-slate-700']}>{item.label}</a>
           ))}
         </nav>
-        <a href="/contact" class="btn-primary hidden py-2.5 md:inline-flex">Get a Free Quote</a>
+        <a href="/#quote" class="btn-primary hidden py-2.5 md:inline-flex">Free Quote</a>
 
         <details class="group relative md:hidden">
-          <summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg ring-1 ring-slate-200" aria-label="Menu">
+          <summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-md ring-1 ring-slate-300" aria-label="Menu">
             <svg class="h-5 w-5 group-open:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
             <svg class="hidden h-5 w-5 group-open:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
           </summary>
-          <nav aria-label="Mobile" class="absolute right-0 mt-2 w-56 rounded-xl bg-white p-2 shadow-lg ring-1 ring-slate-200">
+          <nav aria-label="Mobile" class="absolute right-0 mt-3 w-60 rounded-lg bg-white p-2 shadow-xl ring-1 ring-slate-200">
             {site.nav.map((item) => (
-              <a href={item.href} class="block rounded-lg px-3 py-2.5 hover:bg-mint">{item.label}</a>
+              <a href={item.href} class="block rounded-md px-3 py-2.5 font-medium hover:bg-mist">{item.label}</a>
             ))}
-            <a href="/contact" class="btn-primary mt-1 w-full py-2.5">Get a Free Quote</a>
+            <a href={tel} class="block rounded-md px-3 py-2.5 font-medium text-brand hover:bg-mist">Call {site.phone}</a>
+            <a href="/#quote" class="btn-primary mt-1 w-full py-2.5">Free Quote</a>
           </nav>
         </details>
       </div>
@@ -63,46 +79,25 @@ const tel = `tel:${site.phone.replace(/\s/g, '')}`;
       <slot />
     </main>
 
-    <footer class="bg-ink text-slate-400">
-      <div class="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
-        <div>
-          <a href="/" class="flex items-center gap-2">
-            <Image src={logo} alt="" width={32} height={32} class="rounded bg-white p-0.5" />
-            <span class="text-lg font-semibold text-white">CALNT Technology</span>
-          </a>
-          <p class="mt-4 text-sm leading-relaxed">End-to-end solar EPC for homes and businesses across India.</p>
+    <footer class="bg-ink text-sm text-slate-400">
+      <div class="container-x flex flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between">
+        <div class="flex items-center gap-3">
+          <Image src={logo} alt="" width={36} height={36} class="rounded bg-white p-0.5" />
+          <div>
+            <p class="font-semibold text-white">{site.legalName}</p>
+            <p>Solar EPC · Residential &amp; Commercial</p>
+          </div>
         </div>
-        <div>
-          <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Solutions</h2>
-          <ul class="mt-4 space-y-2.5 text-sm">
-            <li><a class="hover:text-white" href="/services#residential">Residential Solar</a></li>
-            <li><a class="hover:text-white" href="/services#commercial">Commercial Solar</a></li>
-            <li><a class="hover:text-white" href="/services#epc">What EPC Covers</a></li>
-            <li><a class="hover:text-white" href="/services#faq">FAQs</a></li>
-          </ul>
-        </div>
-        <div>
-          <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Company</h2>
-          <ul class="mt-4 space-y-2.5 text-sm">
-            <li><a class="hover:text-white" href="/about">About</a></li>
-            <li><a class="hover:text-white" href="/contact">Contact</a></li>
-            <li><a class="hover:text-white" href="/contact">Get a Free Quote</a></li>
-          </ul>
-        </div>
-        <div>
-          <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Contact</h2>
-          <ul class="mt-4 space-y-2.5 text-sm">
-            <li><a class="hover:text-white" href={tel}>{site.phone}</a></li>
-            <li><a class="hover:text-white" href={`mailto:${site.email}`}>{site.email}</a></li>
-            <li><a class="hover:text-white" href={`https://wa.me/${site.whatsapp}`} rel="noopener">WhatsApp</a></li>
-          </ul>
+        <nav aria-label="Footer" class="flex flex-wrap gap-x-6 gap-y-2">
+          {site.nav.map((item) => <a class="hover:text-white" href={item.href}>{item.label}</a>)}
+        </nav>
+        <div class="flex flex-col gap-1 md:items-end">
+          <a class="hover:text-white" href={tel}>{site.phone}</a>
+          <a class="hover:text-white" href={`mailto:${site.email}`}>{site.email}</a>
         </div>
       </div>
       <div class="border-t border-white/10">
-        <div class="container-x flex flex-col gap-2 py-6 text-xs sm:flex-row sm:justify-between">
-          <p>{site.legalName}</p>
-          <p>© {year} CALNT Technology. All rights reserved.</p>
-        </div>
+        <p class="container-x py-5 text-xs">© {year} {site.legalName}. All rights reserved.</p>
       </div>
     </footer>
   </body>

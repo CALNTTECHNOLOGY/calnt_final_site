@@ -1,0 +1,51 @@
+---
+import { site } from '../site.config';
+interface Props { id?: string }
+const { id = 'quote' } = Astro.props;
+const bills = ['Below ₹2,000', '₹2,000 – ₹5,000', '₹5,000 – ₹10,000', '₹10,000 – ₹50,000', 'Above ₹50,000'];
+---
+<form id={id} action="https://api.web3forms.com/submit" method="POST"
+      class="rounded-xl bg-white p-6 text-slate-700 shadow-2xl shadow-navy/40 sm:p-7">
+  <input type="hidden" name="access_key" value={site.web3formsKey} />
+  <input type="hidden" name="subject" value="New solar quote request (calnt.com)" />
+  <input type="hidden" name="from_name" value="calnt.com quote form" />
+  <input type="hidden" name="redirect" value={`${site.url}/thanks`} />
+  <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <p class="text-xl font-bold text-slate-900">Get a free solar quote</p>
+  <p class="mt-1 text-sm text-slate-500">Our team will call you back to discuss your project.</p>
+
+  <fieldset class="mt-5">
+    <legend class="text-sm font-medium">I need solar for</legend>
+    <div class="mt-1.5 grid grid-cols-2 gap-2">
+      {['Home', 'Business'].map((t, i) => (
+        <label class="cursor-pointer">
+          <input type="radio" name="property_type" value={t} checked={i === 0} class="peer sr-only" />
+          <span class="block rounded-md border border-slate-300 py-2.5 text-center text-sm font-semibold peer-checked:border-brand peer-checked:bg-brand peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-brand/40">{t}</span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <div class="mt-4 space-y-4">
+    <label class="block text-sm font-medium">Full name
+      <input name="name" required autocomplete="name" class="field" />
+    </label>
+    <label class="block text-sm font-medium">Mobile number
+      <input name="phone" type="tel" required autocomplete="tel" inputmode="tel" pattern="[0-9+\s\-]{10,15}" placeholder="10-digit mobile" class="field" />
+    </label>
+    <div class="grid grid-cols-2 gap-3">
+      <label class="block text-sm font-medium">City
+        <input name="city" required autocomplete="address-level2" class="field" />
+      </label>
+      <label class="block text-sm font-medium">Monthly bill
+        <select name="monthly_bill" class="field">
+          {bills.map((b) => <option>{b}</option>)}
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <button type="submit" class="btn-primary mt-6 w-full py-3.5 text-base">Get my free quote</button>
+  <p class="mt-3 text-center text-xs text-slate-400">No spam. We only use your details to contact you about solar.</p>
+</form>

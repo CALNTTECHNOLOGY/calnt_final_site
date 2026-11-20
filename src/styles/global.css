@@ -1,35 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  /* CALNT palette, from the logo */
-  --color-forest: #0c3b27;      /* deep green for dark sections */
-  --color-forest-2: #114a32;
+  /* CALNT corporate palette, from the logo */
+  --color-navy: #072f52;        /* deep logo blue: dark sections */
+  --color-navy-2: #0b4170;
+  --color-brand: #0a6fb5;       /* logo blue: headings, links */
+  --color-brand-dark: #085a93;
   --color-leaf: #2f9e3a;        /* logo green: primary buttons */
   --color-leaf-dark: #26832f;
-  --color-mint: #ecf6ee;        /* light section background */
-  --color-brand: #0a6fb5;       /* logo blue */
-  --color-sun: #f5a623;         /* logo sun: energy accents */
-  --color-ink: #14181b;         /* footer */
-  --font-sans: "Outfit Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-sun: #f5a623;         /* logo sun: small accents */
+  --color-mist: #f2f7fc;        /* light blue-grey section background */
+  --color-ink: #0b1724;         /* footer */
+  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
 }
 
 html { scroll-behavior: smooth; }
-body { background: #f8fbf8; }
+body { background: #ffffff; }
 
 @utility container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
-@utility eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-leaf; }
-@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-semibold transition-colors; }
+@utility eyebrow { @apply text-sm font-semibold text-brand; }
+@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 font-semibold transition-colors; }
 @utility btn-primary { @apply btn bg-leaf text-white hover:bg-leaf-dark; }
-@utility btn-ghost-light { @apply btn px-2 text-white hover:text-sun; }
-@utility btn-outline { @apply btn border border-leaf text-leaf hover:bg-leaf hover:text-white; }
-@utility h-display { @apply text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl; }
-@utility h-section { @apply text-3xl font-semibold tracking-tight sm:text-4xl; }
-
-/* Animated energy flow in the hero diagram */
-@keyframes flow { to { stroke-dashoffset: -40; } }
-.flow { stroke-dasharray: 8 12; animation: flow 1.4s linear infinite; }
-@keyframes pulse-ring { 0%, 100% { opacity: .35; } 50% { opacity: .9; } }
-.node-ring { animation: pulse-ring 3s ease-in-out infinite; }
-@media (prefers-reduced-motion: reduce) {
-  .flow, .node-ring { animation: none; }
-}
+@utility btn-outline { @apply btn border border-brand text-brand hover:bg-brand hover:text-white; }
+@utility h-display { @apply text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl; }
+@utility h-section { @apply text-3xl font-bold tracking-tight sm:text-4xl; }
+@utility field { @apply mt-1.5 w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20; }
