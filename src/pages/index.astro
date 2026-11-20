@@ -1,490 +1,93 @@
 ---
-import Calculator from '../components/Calculator.tsx';
-import LeadForm from '../components/LeadForm.tsx';
-import '../styles/global.css';
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import { site } from '../site.config';
+import hero from '../assets/rooftop-hero.jpg';
+
+const segments = [
+  {
+    title: 'Residential Solar',
+    text: 'Rooftop solar for independent houses, villas and apartments. Cut your monthly electricity bill, with help on PM Surya Ghar subsidy paperwork.',
+    href: '/services#residential',
+  },
+  {
+    title: 'Commercial Solar',
+    text: 'Rooftop and ground-mounted systems for offices, factories, schools, hospitals and warehouses. Lower operating costs and meet sustainability goals.',
+    href: '/services#commercial',
+  },
+];
+
+const steps = [
+  { title: 'Site survey', text: 'We assess your roof, shading and power usage.' },
+  { title: 'Design & quote', text: 'A system sized to your needs, with a clear, itemised quote.' },
+  { title: 'Installation', text: 'Quality panels, inverters and structures installed by our team.' },
+  { title: 'Net metering & handover', text: 'We handle DISCOM paperwork and commission your system.' },
+];
 ---
-
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CALNT Technology – Solar EPC Solutions</title>
-  <meta name="description" content="CALNT Technology delivers end-to-end solar EPC solutions across India. Get PM Surya Ghar subsidy up to ₹78,000 and start saving on your electricity bill today." />
-  <link rel="icon" type="image/jpeg" href="/calnt-logo.jpg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18072102127"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-18072102127');
-  </script>
-  <!-- Google Ads conversion helper (fires on lead form submit) -->
-  <script>
-    function gtagSendEvent(url) {
-      var callback = function () {
-        if (typeof url === 'string') {
-          window.location = url;
-        }
-      };
-      gtag('event', 'ads_conversion_Submit_lead_form_1', {
-        'event_callback': callback,
-        'event_timeout': 2000,
-      });
-      return false;
-    }
-  </script>
-</head>
-<body>
-
-<!-- ==================== NAV ==================== -->
-<header class="nav">
-  <div class="container">
-    <nav class="nav-inner">
-      <a href="/" class="nav-brand">
-        <img src="/calnt-logo.jpg" alt="CALNT Logo" />
-        <div class="wordmark">
-          <b>CALNT</b>
-          <span>TECHNOLOGY LTD</span>
-        </div>
-      </a>
-      <div class="nav-links">
-        <a href="#benefits">Benefits</a>
-        <a href="#services">Services</a>
-        <a href="#process">Process</a>
-        <a href="#calculator">Calculator</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="nav-cta">
-        <a href="tel:+918600405848" class="btn btn-ghost">Call Us</a>
-        <a href="#contact" class="btn btn-primary">Get Free Quote</a>
-        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </button>
-      </div>
-    </nav>
-    <div class="mobile-drawer" id="mobileDrawer">
-      <div class="container">
-        <a href="#benefits">Benefits</a>
-        <a href="#services">Services</a>
-        <a href="#process">Process</a>
-        <a href="#calculator">Calculator</a>
-        <a href="#contact">Get Free Quote</a>
+<Layout>
+  <section class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 md:grid-cols-2 md:py-20">
+    <div>
+      <p class="font-semibold text-leaf">Solar EPC · Residential & Commercial</p>
+      <h1 class="mt-3 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+        Switch to solar. <span class="text-brand">Save on every bill.</span>
+      </h1>
+      <p class="mt-5 text-lg text-slate-600">
+        {site.legalName} designs, supplies and installs complete solar power systems
+        for homes and businesses across India, from first survey to switch-on.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/contact" class="rounded-lg bg-brand px-5 py-3 font-semibold text-white hover:bg-brand-dark">Get a free quote</a>
+        <a href={`https://wa.me/${site.whatsapp}`} class="rounded-lg border border-leaf px-5 py-3 font-semibold text-leaf hover:bg-leaf hover:text-white" rel="noopener">WhatsApp us</a>
       </div>
     </div>
-  </div>
-</header>
+    <Image
+      src={hero}
+      alt="Solar panels installed on a rooftop by CALNT Technology"
+      widths={[400, 720]}
+      sizes="(min-width: 768px) 50vw, 100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg md:aspect-[4/5]"
+    />
+  </section>
 
-<!-- ==================== HERO ==================== -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div class="hero-content">
-        <div class="pill"><span class="dot"></span> PM Surya Ghar Yojana Approved</div>
-        <h1>Power Your Home with Solar Energy</h1>
-        <p class="hero-sub">
-          CALNT Technology delivers complete solar EPC solutions — from design and supply to installation and grid connection. Claim up to <strong>₹78,000 in government subsidy</strong> and slash your electricity bill.
-        </p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary btn-lg">Get Free Assessment →</a>
-          <a href="#calculator" class="btn btn-ghost btn-lg">Calculate Savings</a>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <b>500+</b>
-            <span>Installations</span>
-          </div>
-          <div class="hero-stat-divider"></div>
-          <div class="hero-stat">
-            <b>₹78K</b>
-            <span>Max Subsidy</span>
-          </div>
-          <div class="hero-stat-divider"></div>
-          <div class="hero-stat">
-            <b>25 yr</b>
-            <span>Panel Warranty</span>
-          </div>
-        </div>
-        <div class="dpiit-badge">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-          DPIIT Recognised Startup
-        </div>
-      </div>
-      <div class="hero-visual">
-        <img src="/rooftop-hero.jpg" alt="Solar panels on rooftop" class="hero-img" />
-        <div class="hero-badge">
-          <div class="hero-badge-icon">☀️</div>
-          <div>
-            <b>Free Site Survey</b>
-            <span>Within 48 hours</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== PM SURYA GHAR BENEFITS ==================== -->
-<section class="section bg-alt" id="benefits">
-  <div class="container">
-    <div class="section-header">
-      <div class="pill"><span class="dot"></span> Government Scheme</div>
-      <h2>PM Surya Ghar Muft Bijli Yojana</h2>
-      <p class="section-sub">India's largest rooftop solar scheme — get direct subsidies into your bank account and enjoy free electricity every month.</p>
-    </div>
-    <div class="benefits-grid">
-      <div class="benefit-card benefit-card-large">
-        <div class="benefit-icon sun">₹</div>
-        <h3>Direct Subsidy up to ₹78,000</h3>
-        <p>Central government subsidy deposited directly to your bank account. No middlemen, no delays.</p>
-        <div class="subsidy-table">
-          <div class="subsidy-row">
-            <span>Up to 1 kW</span>
-            <b>₹30,000</b>
-          </div>
-          <div class="subsidy-row">
-            <span>1 kW – 2 kW</span>
-            <b>₹60,000</b>
-          </div>
-          <div class="subsidy-row highlight-row">
-            <span>2 kW – 3 kW</span>
-            <b>₹78,000</b>
-          </div>
-        </div>
-      </div>
-      <div class="benefits-list">
-        <div class="benefit-item">
-          <div class="benefit-item-icon">⚡</div>
-          <div>
-            <h4>300 Units Free Electricity</h4>
-            <p>Eligible households receive up to 300 units of free electricity per month through net metering.</p>
-          </div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-item-icon">🏦</div>
-          <div>
-            <h4>Collateral-Free Loans</h4>
-            <p>Access subsidised solar loans at low interest rates from nationalised banks.</p>
-          </div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-item-icon">📊</div>
-          <div>
-            <h4>Online Portal & Tracking</h4>
-            <p>Track subsidy status, net meter requests and payments on the national portal.</p>
-          </div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-item-icon">🔄</div>
-          <div>
-            <h4>Net Metering & Export Income</h4>
-            <p>Sell surplus power back to the grid and earn credits on your electricity bill.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SERVICES ==================== -->
-<section class="section" id="services">
-  <div class="container">
-    <div class="section-header">
-      <div class="pill"><span class="dot"></span> What We Do</div>
-      <h2>Complete Solar EPC Services</h2>
-      <p class="section-sub">Engineering, Procurement &amp; Construction — we handle everything from the first visit to grid connection.</p>
-    </div>
-
-    <!-- Featured top row -->
-    <div class="svc-featured">
-      <div class="svc-feat-card svc-blue">
-        <div class="svc-feat-left">
-          <div class="svc-feat-num">01</div>
-          <div class="svc-feat-icon svc-icon-blue">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
-          </div>
-          <h3>Site Assessment &amp; System Design</h3>
-          <p>We visit your property, analyse shade patterns, roof load capacity, and consumption data — then design a system optimised for maximum generation and fastest payback.</p>
-          <ul class="svc-bullets">
-            <li>Shadow &amp; irradiance analysis</li>
-            <li>Structural roof assessment</li>
-            <li>Load &amp; sizing calculation</li>
-            <li>Single-line diagram &amp; layout drawings</li>
-          </ul>
-        </div>
-        <div class="svc-feat-right">
-          <div class="svc-feat-num">02</div>
-          <div class="svc-feat-icon svc-icon-green">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-            </svg>
-          </div>
-          <h3>PM Surya Ghar Subsidy Filing</h3>
-          <p>Our team handles the complete government paperwork — from portal registration and DISCOM approval to subsidy claim — so you receive up to ₹78,000 without any hassle.</p>
-          <ul class="svc-bullets">
-            <li>National portal registration</li>
-            <li>DISCOM net meter application</li>
-            <li>Subsidy claim &amp; follow-up</li>
-            <li>Bank account credit coordination</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom 4-card row -->
-    <div class="svc-grid">
-      <div class="svc-card svc-accent-blue">
-        <div class="svc-top">
-          <div class="svc-icon-wrap svc-icon-blue">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/>
-            </svg>
-          </div>
-          <span class="svc-num">03</span>
-        </div>
-        <h3>Installation &amp; Commissioning</h3>
-        <p>Certified technicians install premium panels, inverters, and mounting systems in 1–3 days. All wiring is DISCOM-compliant and safety-tested before handover.</p>
-        <ul class="svc-bullets">
-          <li>Tier-1 panels &amp; inverters</li>
-          <li>Galvanised mounting structures</li>
-          <li>AC/DC cabling &amp; earthing</li>
-        </ul>
-      </div>
-
-      <div class="svc-card svc-accent-sun">
-        <div class="svc-top">
-          <div class="svc-icon-wrap svc-icon-sun">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="1" y="6" width="15" height="13" rx="2"/><path d="M16 10l4-2v8l-4-2"/><line x1="1" y1="10" x2="16" y2="10"/>
-            </svg>
-          </div>
-          <span class="svc-num">04</span>
-        </div>
-        <h3>Net Meter &amp; Grid Connection</h3>
-        <p>We coordinate the entire DISCOM net meter process, handle inspections, and ensure your system is fully synchronised with the grid to earn export credits.</p>
-        <ul class="svc-bullets">
-          <li>DISCOM inspection liaison</li>
-          <li>Bi-directional meter installation</li>
-          <li>Grid synchronisation &amp; testing</li>
-        </ul>
-      </div>
-
-      <div class="svc-card svc-accent-green">
-        <div class="svc-top">
-          <div class="svc-icon-wrap svc-icon-green">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><polyline points="18 10 12 4 6 14"/>
-            </svg>
-          </div>
-          <span class="svc-num">05</span>
-        </div>
-        <h3>Remote Monitoring</h3>
-        <p>Track generation, savings, and system health in real time via our mobile app and web dashboard. Instant alerts if performance drops below expected levels.</p>
-        <ul class="svc-bullets">
-          <li>Live generation &amp; savings tracking</li>
-          <li>Mobile app &amp; web dashboard</li>
-          <li>Fault detection &amp; alerts</li>
-        </ul>
-      </div>
-
-      <div class="svc-card svc-accent-purple">
-        <div class="svc-top">
-          <div class="svc-icon-wrap svc-icon-purple">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <span class="svc-num">06</span>
-        </div>
-        <h3>AMC &amp; After-Sales Support</h3>
-        <p>Our Annual Maintenance Contracts keep your system performing at peak efficiency. Rapid response, panel cleaning, performance audits, and a 25-year warranty backed by CALNT.</p>
-        <ul class="svc-bullets">
-          <li>Annual cleaning &amp; inspection</li>
-          <li>Performance guarantee</li>
-          <li>Rapid fault response</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== PROCESS ==================== -->
-<section class="section bg-alt" id="process">
-  <div class="container">
-    <div class="section-header">
-      <div class="pill"><span class="dot"></span> How It Works</div>
-      <h2>From Enquiry to Energisation</h2>
-      <p class="section-sub">A transparent, hassle-free process from your first call to the day your panels start generating.</p>
-    </div>
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="process-num">01</div>
-        <div class="process-content">
-          <h3>Free Consultation</h3>
-          <p>Submit your details below. Our advisor calls within 24 hours to understand your requirements and electricity usage.</p>
-        </div>
-      </div>
-      <div class="process-arrow">→</div>
-      <div class="process-step">
-        <div class="process-num">02</div>
-        <div class="process-content">
-          <h3>Site Survey</h3>
-          <p>Our engineer visits your property to assess roof condition, shading, structural strength, and load requirements.</p>
-        </div>
-      </div>
-      <div class="process-arrow">→</div>
-      <div class="process-step">
-        <div class="process-num">03</div>
-        <div class="process-content">
-          <h3>Proposal & Subsidy Filing</h3>
-          <p>Detailed proposal with costs, savings projections, and subsidy calculations. We file the PM Surya Ghar application for you.</p>
-        </div>
-      </div>
-      <div class="process-arrow">→</div>
-      <div class="process-step">
-        <div class="process-num">04</div>
-        <div class="process-content">
-          <h3>Installation</h3>
-          <p>Panels installed in 1–3 days by certified teams. All work is clean, safe, and DISCOM-compliant.</p>
-        </div>
-      </div>
-      <div class="process-arrow">→</div>
-      <div class="process-step">
-        <div class="process-num">05</div>
-        <div class="process-content">
-          <h3>Subsidy Credited</h3>
-          <p>Net meter installed, system commissioned, and subsidy deposited directly to your bank account.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== CALCULATOR ==================== -->
-<section class="section" id="calculator">
-  <div class="container">
-    <div class="section-header">
-      <div class="pill"><span class="dot"></span> Savings Estimator</div>
-      <h2>How Much Could You Save?</h2>
-      <p class="section-sub">Enter your monthly electricity bill and get an instant estimate of system size, cost, and payback period.</p>
-    </div>
-    <Calculator client:load />
-  </div>
-</section>
-
-<!-- ==================== CONTACT FORM ==================== -->
-<section class="section bg-alt" id="contact">
-  <div class="container">
-    <div class="contact-grid">
-      <div class="contact-info">
-        <div class="pill"><span class="dot"></span> Get Started Today</div>
-        <h2>Book Your Free Solar Assessment</h2>
-        <p>No cost, no commitment. A CALNT solar advisor will call you within 24 hours and a site survey will be arranged at your convenience.</p>
-        <div class="contact-trust">
-          <div class="trust-item">
-            <span class="trust-icon">✓</span>
-            <span>Free site survey — no obligation</span>
-          </div>
-          <div class="trust-item">
-            <span class="trust-icon">✓</span>
-            <span>PM Surya Ghar subsidy managed end-to-end</span>
-          </div>
-          <div class="trust-item">
-            <span class="trust-icon">✓</span>
-            <span>Certified installers, premium components</span>
-          </div>
-          <div class="trust-item">
-            <span class="trust-icon">✓</span>
-            <span>25-year panel performance warranty</span>
-          </div>
-        </div>
-        <div class="contact-direct">
-          <a href="mailto:info@calnt.com" class="contact-link">
-            <span>📧</span> info@calnt.com
+  <section class="bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-16">
+      <h2 class="text-3xl font-bold text-slate-900">Solar solutions for every roof</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        {segments.map((s) => (
+          <a href={s.href} class="group rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:ring-brand">
+            <h3 class="text-xl font-semibold text-slate-900 group-hover:text-brand">{s.title}</h3>
+            <p class="mt-2 text-slate-600">{s.text}</p>
+            <span class="mt-4 inline-block font-semibold text-brand">Learn more →</span>
           </a>
-          <a href="tel:+918600405848" class="contact-link">
-            <span>📞</span> +91 86004 05848
-          </a>
-          <a href="https://wa.me/918600405848" target="_blank" rel="noopener" class="contact-link contact-link-wa">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-            WhatsApp Us
-          </a>
-        </div>
-      </div>
-      <div class="contact-form-wrap">
-        <LeadForm client:load />
+        ))}
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ==================== FOOTER ==================== -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="/" class="nav-brand">
-          <img src="/calnt-logo.jpg" alt="CALNT Logo" />
-          <div class="wordmark">
-            <b>CALNT</b>
-            <span>TECHNOLOGY LTD</span>
-          </div>
-        </a>
-        <p class="footer-tagline">Engineering a solar-powered India — one rooftop at a time.</p>
-      </div>
-      <div class="footer-links-group">
-        <h4>Company</h4>
-        <a href="#services">Services</a>
-        <a href="#process">How It Works</a>
-        <a href="#calculator">Calculator</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="footer-links-group">
-        <h4>Scheme</h4>
-        <a href="#benefits">PM Surya Ghar Yojana</a>
-        <a href="#benefits">Subsidy Calculator</a>
-        <a href="#benefits">Net Metering</a>
-      </div>
-      <div class="footer-links-group">
-        <h4>Get in Touch</h4>
-        <a href="mailto:info@calnt.com">info@calnt.com</a>
-        <a href="tel:+918600405848">+91 86004 05848</a>
-        <a href="https://wa.me/918600405848" target="_blank" rel="noopener">WhatsApp</a>
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <h2 class="text-3xl font-bold text-slate-900">How it works</h2>
+    <p class="mt-2 text-slate-600">One team handles everything: engineering, procurement and construction.</p>
+    <ol class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {steps.map((s, i) => (
+        <li class="rounded-2xl p-6 ring-1 ring-slate-200">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-sun/15 font-bold text-amber-700">{i + 1}</span>
+          <h3 class="mt-4 font-semibold text-slate-900">{s.title}</h3>
+          <p class="mt-1 text-slate-600">{s.text}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="bg-brand">
+    <div class="mx-auto max-w-6xl px-4 py-14 text-center text-white">
+      <h2 class="text-3xl font-bold">Find out how much you can save</h2>
+      <p class="mt-2 text-blue-100">Free site survey and quote, with no obligation.</p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="/contact" class="rounded-lg bg-white px-5 py-3 font-semibold text-brand hover:bg-blue-50">Request a quote</a>
+        <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="rounded-lg border border-white/60 px-5 py-3 font-semibold hover:bg-white/10">Call {site.phone}</a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>© {new Date().getFullYear()} CALNT Technology Ltd. All rights reserved.</p>
-      <div class="footer-bottom-right">
-        <span class="footer-dpiit-badge">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-          DPIIT Recognised Startup
-        </span>
-        <span>Registered Solar EPC Contractor · PM Surya Ghar Empanelled</span>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-  // Mobile menu toggle
-  const menuBtn = document.getElementById('menuBtn');
-  const drawer = document.getElementById('mobileDrawer');
-  menuBtn?.addEventListener('click', () => {
-    drawer?.classList.toggle('open');
-  });
-  // Close drawer when a link is clicked
-  drawer?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => drawer.classList.remove('open'));
-  });
-</script>
-
-</body>
-</html>
+  </section>
+</Layout>

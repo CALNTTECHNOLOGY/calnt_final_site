@@ -1,0 +1,63 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import { Image } from 'astro:assets';
+import { site } from '../site.config';
+import logo from '../assets/logo-mark.png';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0a6fb5" />
+    <SEO {...Astro.props} />
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-screen flex-col bg-white font-sans text-slate-800 antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:p-3">Skip to content</a>
+    <header class="border-b border-slate-100">
+      <nav class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4" aria-label="Main">
+        <a href="/" class="flex items-center gap-2" aria-label={`${site.name} home`}>
+          <Image src={logo} alt="" width={40} height={40} loading="eager" />
+          <span class="text-lg font-extrabold tracking-tight text-brand">CALNT <span class="font-semibold text-leaf">Technology</span></span>
+        </a>
+        <ul class="flex flex-wrap gap-5 text-sm font-medium">
+          {site.nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={path === item.href ? 'page' : undefined}
+                class:list={['hover:text-brand', path === item.href ? 'text-brand' : 'text-slate-600']}
+              >{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="border-t border-slate-100 text-sm text-slate-500">
+      <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 sm:flex-row sm:justify-between">
+        <p>© {year} {site.legalName}. All rights reserved.</p>
+        <p class="flex gap-4">
+          <a class="hover:text-brand" href={`mailto:${site.email}`}>{site.email}</a>
+          <a class="hover:text-brand" href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

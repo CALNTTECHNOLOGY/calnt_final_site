@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { site } from '../site.config';
+
+const epc = [
+  { title: 'Engineering', text: 'Site survey, shadow analysis, load assessment and system design.' },
+  { title: 'Procurement', text: 'Solar panels, inverters, mounting structures and balance-of-system components.' },
+  { title: 'Construction', text: 'Installation, wiring, earthing, safety checks and commissioning.' },
+  { title: 'Approvals', text: 'Net metering applications and coordination with your electricity board (DISCOM).' },
+];
+
+const faqs = [
+  {
+    q: 'What does solar EPC mean?',
+    a: 'EPC stands for Engineering, Procurement and Construction. We design your solar system, source all the equipment and install it, so you deal with one company from start to finish.',
+  },
+  {
+    q: 'Do you install solar for homes as well as businesses?',
+    a: 'Yes. We handle residential rooftop systems for houses and apartments, and commercial systems for offices, factories, schools and other buildings.',
+  },
+  {
+    q: 'Can you help with the PM Surya Ghar subsidy?',
+    a: 'Yes. For eligible residential installations we guide you through the PM Surya Ghar Muft Bijli Yojana application so the subsidy is credited to your bank account.',
+  },
+  {
+    q: 'How do I get a quote?',
+    a: `Send us a message through the contact page, call ${site.phone}, or message us on WhatsApp. We'll arrange a site survey and share a detailed quote.`,
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<Layout
+  title="Solar EPC Services: Residential & Commercial"
+  description="Residential and commercial solar EPC services by CALNT Technology: design, supply, installation, net metering and PM Surya Ghar subsidy support."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqLd)} />
+  <PageHeader title="Solar EPC Services" intro="Complete solar power systems for homes and businesses, delivered end to end." />
+
+  <section class="mx-auto grid max-w-6xl gap-6 px-4 py-14 md:grid-cols-2">
+    <div id="residential" class="scroll-mt-6 rounded-2xl p-7 ring-1 ring-slate-200">
+      <h2 class="text-2xl font-bold text-slate-900">Residential Solar</h2>
+      <p class="mt-3 text-slate-600">Rooftop solar for independent houses, villas and apartments.</p>
+      <ul class="mt-4 list-disc space-y-1 pl-5 text-slate-700">
+        <li>On-grid systems sized to your monthly consumption</li>
+        <li>PM Surya Ghar subsidy application support</li>
+        <li>Net metering so extra power earns you credit</li>
+        <li>Neat installation that respects your roof</li>
+      </ul>
+    </div>
+    <div id="commercial" class="scroll-mt-6 rounded-2xl p-7 ring-1 ring-slate-200">
+      <h2 class="text-2xl font-bold text-slate-900">Commercial Solar</h2>
+      <p class="mt-3 text-slate-600">Solar for offices, factories, warehouses, schools, hospitals and more.</p>
+      <ul class="mt-4 list-disc space-y-1 pl-5 text-slate-700">
+        <li>Rooftop and ground-mounted systems</li>
+        <li>Designed around your load profile and roof area</li>
+        <li>Lower operating costs and a faster payback</li>
+        <li>Support your sustainability and ESG goals</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-14">
+      <h2 class="text-3xl font-bold text-slate-900">What our EPC service covers</h2>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {epc.map((e) => (
+          <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
+            <h3 class="font-semibold text-brand">{e.title}</h3>
+            <p class="mt-2 text-slate-600">{e.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h2 class="text-3xl font-bold text-slate-900">Frequently asked questions</h2>
+    <div class="mt-6 divide-y divide-slate-200">
+      {faqs.map((f) => (
+        <details class="group py-4">
+          <summary class="cursor-pointer list-none font-semibold text-slate-900 marker:hidden">
+            <span class="flex justify-between gap-4">{f.q}<span class="text-brand group-open:rotate-45">+</span></span>
+          </summary>
+          <p class="mt-2 text-slate-600">{f.a}</p>
+        </details>
+      ))}
+    </div>
+    <a href="/contact" class="mt-8 inline-block rounded-lg bg-brand px-5 py-3 font-semibold text-white hover:bg-brand-dark">Get a free quote</a>
+  </section>
+</Layout>
